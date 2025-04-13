@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gujarat Task Spinner</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    #spinBtn {
+      padding: 10px 30px;
+      font-size: 18px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #spinBtn:hover {
+      background: #1e7e34;
+    }
+
+    #task, #log {
+      margin-top: 20px;
+      max-width: 600px;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+
+    #log {
+      margin-top: 40px;
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .category {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gujarat Trip Task Spinner</h1>
+  <!-- <p>Each Category has some points 
+    <li>Easy - 1 Point</li>
+    <li>Medium - 3 Point</li>
+    <li>Hard - 5 Point</li>
+    <li>Extreme - 7 Point</li>
+  </p> -->
+  <label for="categorySelect">Choose Task Category:</label>
+  <br/>
+  <select id="categorySelect">
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Hard">Hard</option>
+    <option value="Extreme">Extreme</option>
+  </select>
+  
+  <button id="spinBtn">Spin for Task</button>
+  <div id="task">Pick a category and spin!</div>
+  
+  <div id="log">
+    <h3>Completed Tasks</h3>
+    <ul id="completedTasks"></ul>
+  </div>
+
+  <!-- <audio id="spinSound" src="spin.mp3" preload="auto"></audio> -->
+
+  <script>
+    const spinBtn = document.getElementById('spinBtn');
+    const taskDisplay = document.getElementById('task');
+    const completedList = document.getElementById('completedTasks');
+    const categorySelect = document.getElementById('categorySelect');
+    const spinSound = document.getElementById('spinSound');
+
+    const tasks = {
+      Easy: [
+        "Eat something you ve never tried before",
+        "Only drink water for 4 hours no food",
+        "Sit blindfolded in the car for 1 hour",
+        "Wear only shorts and no top till next stop",
+        "Only eat with your non-dominant hand all day",
+        "Eat famous dish of Gujarat",
+        "Place an food order on zomato or Swiggy",
+        "Race with a stranger (ask them nicely first!)",
+        "Eat something blindfolded and guess what it is",
+        "Only eat food starting with the letter P until the next stop"
+
+      ],
+      Medium: [
+        "Walk 1 km while others drive ahead",
+        "Only eat with your non-dominant hand till next stop",
+        "Swap clothes with another friend",
+        "Do a dance at the petrol station",
+        "Don’t speak for 1 hour"
+      ],
+      Hard: [
+        "Eat a raw onion",
+        "Talk only in rhymes for 30 mins",
+        "Paint your face like a clown and go out for snacks",
+        "Do 50 squats on the roadside",
+        "Sit blindfolded in the car for 1 hour"
+      ],
+      Extreme: [
+        "Shave your beard/moustache",
+        "Let your friends post a funny pic on your Instagram",
+        "Call your crush and confess something weird",
+        "Eat the spiciest thing you can find",
+        "Ask a stranger to be your 'travel buddy' for 5 minutes"
+      ]
+    };
+
+    spinBtn.addEventListener('click', () => {
+      spinSound.play();
+
+      const selectedCategory = categorySelect.value;
+      const taskArr = tasks[selectedCategory];
+      const randomTask = taskArr[Math.floor(Math.random() * taskArr.length)];
+
+      const logItem = document.createElement('li');
+      logItem.innerHTML = `<span class="category">${selectedCategory}</span>: ${randomTask}`;
+      completedList.appendChild(logItem);
+
+      taskDisplay.innerText = `${selectedCategory} Task: ${randomTask}`;
+    });
+  </script>
+</body>
+</html>
